@@ -11,8 +11,8 @@ services:
         - wordpress:/var/www/html
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: julianvn
-      WORDPRESS_DB_PASSWORD: NGV8xBVNc9SNb7i
+      WORDPRESS_DB_USER: ${USER_DB:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${USER_DB_PASSWORD?Missing MariaDB user password}
       WORDPRESS_DB_NAME: wpdb
 
   db:
@@ -21,10 +21,10 @@ services:
     volumes:
       - mariadb:/var/lib/mysql
     environment:
-      MARIADB_ROOT_PASSWORD: CCswhmN93CAxJAG
+      MARIADB_ROOT_PASSWORD: ${ROOT_DB_PASSWORD?Missing MariaDB root password}
       MARIADB_DATABASE: wpdb
-      MARIADB_USER: julianvn
-      MARIADB_PASSWORD: NGV8xBVNc9SNb7i
+      MARIADB_USER: ${USER_DB:-wordpress}
+      MARIADB_PASSWORD: ${USER_DB_PASSWORD?Missing MariaDB user password}
 
   adminer:
     image: adminer:4.8.1-standalone
